@@ -1,0 +1,130 @@
+Chapter 2 JSON web tokens
+
+Los JSON Web Tokens (JWT) son un estándar que nos permite
+representar los permisos o requerimientos entre dos partes,
+es decir, el servidor de nuestra aplicación concede los
+permisos para un usuario generando un token, este token se
+envía al cliente o navegador donde utilizamos el token para
+realizar peticiones al servidor sin que éste necesite
+verificar a los usuarios, simplemente recibe los JWT y
+devuelve la información a la que el usuario tiene permiso
+según cada token.
+
+Los JWT se dividen en 3 cadenas de texto separadas por
+puntos.
+
+La primera parte es el header y contiene el algoritmo y el tipo de token que utilizamos para firmar.
+
+La segunda parte es el payload, contiene información como la identificación del usuario, fechas de creación y expiración del token, entre otras ( debemos tener cuidado de no transmitir información sensible ya que, puede ser decodificada por alguna otra aplicación). Por último, la signature es la tercera parte del token y se genera codificando los anteriores campos más una firma secreta, gracias a esta parte del token podemos verificar su autenticidad e invalidar el token si alguno de los campos cambia.
+
+Podemos utilizar dos tipos de algoritmos para codificar nuestros tokens, los simétricos nos permiten encriptar y desencriptar los tokens utilizando una única llave privada, o podemos utilizar algoritmos asimétricos que utilizan una llave privada y una publica para tener mayor seguridad y evitar problemas si alguna de las llaves es interceptada.
+
+Los JSON wen token no estan encriptados solo codificados
+es mas facil para decodificar
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+JSON Web Token (JWT) es un estándar abierto (RFC-7519)
+basado en JSON para crear un token que sirva para enviar
+datos entre aplicaciones o servicios y garantizar que sean
+válidos y seguros.
+
+El caso más común de uso de los JWT es para manejar la
+autenticación en aplicaciones móviles o web. Para esto
+cuando el usuario se quiere autenticar manda sus datos de
+inicio del sesión al servidor, este genera el JWT y se lo
+manda a la aplicación cliente, luego en cada petición el
+cliente envía este token que el servidor usa para verificar
+que el usuario este correctamente autenticado y saber quien
+es.
+
+Este igual no es el único caso de uso para JWT, es posible
+usarlo para transferir cualquier datos entre servicios de
+nuestra aplicación y asegurarnos de que sean siempre
+válido. Por ejemplo si tenemos un servicio de envío de
+email otro servicio podría enviar una petición con un JWT
+junto al contenido del mail o cualquier otro dato necesario
+y que estemos seguros que esos datos no fueron alterados de
+ninguna forma.
+
+
+Estructura de un JWT
+
+Los JWT tienen una estructura definida y estándar basada en
+tres partes:
+
+    header.payload.signature
+
+Las primeras dos partes (header y payload) son strings en
+base64 creados a partir dos JSON.
+
+La tercer parte (signature) toma las otras dos partes y las
+encripta usando un algoritmo (normalmente SHA-256). Ejemplo:
+
+    eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEiLCJ1c2VybmFtZSI6InNlcmdpb2R4YSJ9.Qu7rv5wqk6zGjiMU8ZixwvKQGBNW9hhj55DbSP50b1g
+
+Header
+
+El header de un JWT tiene la siguiente forma:
+
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+
+La propiedad alg indica el algoritmo usado para en la firma y la propiedad typ define el tipo de token, en nuestro caso JWT.
+Propiedades posibles
+
+    Tipo de token (typ) - Identifica el tipo de token.
+    Tipo de contenido (cty) - Identifica el tipo de contenido (siempre debe ser JWT)
+    Algoritmo de firmado (alg) - Indica que tipo de algoritmo fue usado para firmar el token.
+    Cualquier otro incluido en JWS y JWE.
+
+Payload
+
+El payload de un JWT es un JSON que puede tener cualquier propiedad, aunque hay una serie de nombres de propiedades definidos en el estándar.
+
+{
+  "id": "1",
+  "username": "sergiodxa"
+}
+
+Ese es el payload usado en el JWT de ejemplo.
+Propiedades estándar
+
+    Creador (iss) - Identifica a quien creo el JWT
+    Razón (sub) - Identifica la razón del JWT, se puede usar para limitar su uso a ciertos casos.
+    Audiencia (aud) - Identifica quien se supone que va a recibir el JWT. Un ejemplo puede ser web, android o ios. Quien use un JWT con este campo debe además de usar el JWT enviar el valor definido en esta propiedad de alguna otra forma.
+    Tiempo de expiración (exp) - Una fecha que sirva para verificar si el JWT esta vencido y obligar al usuario a volver a autenticarse.
+    No antes (nbf) - Indica desde que momento se va a empezar a aceptar un JWT.
+    Creado (iat) - Indica cuando fue creado el JWT.
+    ID (jti) - Un identifador único para cada JWT.
+
+Signature
+
+Por último la firma del JWT se genera usando los anteriores dos campos en base64 y una key secreta (que solo se sepa en los servidores que creen o usen el JWT) para usar un algoritmo de encriptación. La forma de hacerlo entonces sería la siguiente (usando pseudo código):
+
+key =  'secret'
+unsignedToken = base64Encode(header) + '.' + base64Encode(payload)
+signature = SHA256(key, unsignedToken)
+token = unsignedToken + '.' + signature
+
+De esta forma obtenemos la firma y la agregamos al final de nuestro JWT.
+
+@@@@@@@@@@@@@@@@@@@@@@@
+https://jwt.io/  toda la información necesaria
+https://tools.ietf.org/html/rfc7519 como usar el token
+@@@@@@@@@@@@@@@@@@@@@@@@@
+los clain hay publicos que estan definidos y
+los clain privados que son los que podemos desarrollar
+segun nuestras necesidades
+En los payload no debe haber información sencible
+que pueda comprometer al cliente ya que podemos
+decodificarlo
+
+en  la pagina de jwt.io podemos decodificar cualquier
+token
+
+se necesita la secert key para la firma del token
+que esta encriptada en sha256 sin la llave no
+podemos modificar el token

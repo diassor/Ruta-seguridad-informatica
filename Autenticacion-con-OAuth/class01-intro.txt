@@ -1,0 +1,10 @@
+Bienvenido al Curso de Autenticación con OAuth, esta vez nuestro profesor será Guillermo Rodas que tiene más de 5 años de experiencia trabajando con JavaScript, es parte del equipo de ingeniería de Auth0 y co-organizador de comunidades como MedellínCSS.
+
+El proyecto de este curso es un blog de música usando las integraciones de Spotify y Auth0. No vamos a detenernos mucho en la configuración ni los estilos, así podremos concentrarnos en construir la autenticación y la seguridad de la aplicación. Los requisitos básicos para tomar este curso son: conocimientos básicos de Node.js, HTML y CSS.
+
+Vamos a crear una serie de aplicativos , autenticacion requiere
+diferentes flujos para las diferentes versiones
+en donde este corriendo , servidor o cliente
+
+cada flujo es especial y requiere sus propias condiciones
+vamos a tener un crud cooriendo en el servidor 

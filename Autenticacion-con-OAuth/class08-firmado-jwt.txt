@@ -1,0 +1,100 @@
+firmado un JWT
+
+
+Para generar y firmar un JWT de manera simétrica vamos a instalar las siguientes dependencias:
+
+npm i -S express dotenv jsonwebtoken body-parser
+
+La librería dotenv nos permite crear archivos .env con la información que no podemos publicar de nuestro proyecto, por ejemplo, la llave secreta de nuestro JWT. Por otra parte, la librería jsonwebtoken nos permite firmar nuestros tokens de manera simétrica.
+
+Con nuestras dependencias instaladas y los archivos .env configurados, podemos programar nuestra aplicación, en esta clase vamos a crear un endpoint /api/auth/token donde debemos generar un token de usuario utilizando el método jwt.sign().
+
+Es una variable de entorno que vas a mantener en tu servidor para verificar todos los json web tokens de tus usuarios.
+Vas a tener una variable de entorno para cada tipo de servidor que poseas. Un esquema en cualquier organización podría ser la siguiente:
+
+    Desarrollo: tu localhost
+    Testing
+    Producción
+
+Cada servidor contara con una variable distinta.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+en la carpeta api
+    package.js
+
+instalar dependencias
+    terminal foder api
+    npm
+    i = installar
+    -S = instala como dependencia
+    express
+    dotenv = donde registramos nuestro secret
+        archivo .env seguro
+    jsonwebtoken = librería que nos permite
+        firmar y verificar un jwt
+    body-parser = para leer el body tipo json
+        cuando se este enviando la información
+        del usuario que quiro firmar en el toquen
+
+lo corremos dentro del proyecto api
+
+
+api git:(master) ✗ npm i -S express dotenv jsonwebtoken body-parser
+npm notice created a lockfile as package-lock.json. You should commit this file.
+npm WARN api@1.0.0 No description
+npm WARN api@1.0.0 No repository field.
+
++ jsonwebtoken@8.5.1
++ dotenv@8.2.0
++ express@4.17.1
++ body-parser@1.19.0
+added 65 packages from 46 contributors and audited 176 packages in 2.907s
+found 0 vulnerabilities
+
+crea las dependencias
+carpeta node_modules
+package-lock.json
+
+creamos un archivo .gitignore (en api) por que no
+queremos que nuestra carpeta node_modules y .env
+sean enviandos al repository
+
+creamos .env.example que es nuestro archivo donde
+creamos la variante de entorno
+en .env cramos AUTH_JWT_SECRET= con un cifrado de
+256 bits que es lo recomendado
+se generea , y nunca subirlo al repositorio
+
+api => config = index.js
+    Buena practica no leer directamente de las variante
+    de entorno la configuracion , el dia de manana no
+    seran variantes de entorno si no que las leeremos
+    de otra parte query , database , entonces nuestro
+    archivo de configuracion es el que se encarga de
+    decidir de donde proviene y haci tenemos
+    centralizado todas las app y es mas facil cambiarla
+    en el futuro
+
+vamos a crear una dependencia en modo de desarrolo
+que se llama nodemon
+
+en la api hay que instalar nodemon
+    ➜ api git:(master) ✗ npm i -D nodemon
+
+He descargado postman para realizar los debuggers
+necesarios y revision de los token creados
+alli method post y url del landing page o app
+damos nuestros valores para realizar el token
+ejemplo luego vamos a jwt.io para decoding and
+analice this fact
+
+en jwt.io nosdice que nuestra firma es invalida
+por que esta usando una key secret nativa de jwt
+ahora ponemos nuestro h256 bit (hello word) jajjaa
+0b894166d3336435c800bea36ff21b29eaa801a52f584c006c49289a0dcf6e2f
+
+
+de esta manera podemos verificar la firma de
+nuestro jwt luego lo verificaremos por medio de endpoint 

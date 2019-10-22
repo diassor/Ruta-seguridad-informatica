@@ -1,0 +1,3 @@
+Autenticacion
+
+La autenticación consiste en verificar la identidad de nuestros usuarios, es decir, debemos asegurarnos de que los usuarios existen, si pueden ingresar a nuestro sistema, si tienen los permisos adecuados, entre otras cosas, podemos utilizar mecanismos de usuario y contraseña, mensajes de texto, envío de URLs por correo electrónico, entre otras.

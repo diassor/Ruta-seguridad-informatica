@@ -1,0 +1,52 @@
+Autenticacion tradicional vs JWT
+La autenticación tradicional funciona creando un espacio en memoria con un id para identificar a los usuarios activos, estos IDs se almacenan en cookies (información que enviamos o modificamos entre servidores y navegadores) para identificar si los usuarios están o no autenticados. Todas las cookies tienen un tiempo límite, es decir, después de cierto tiempo la cookie se borra y la sesión termina, el usuario debe volver a autenticarse.
+
+El problema de este tipo de autenticación es que no funciona con _Single Page Applications (aplicaciones construidas sobre una única página), ya que no refrescamos el navegador para acceder a nueva información o verificar la autenticación de los usuarios, no hay forma de acceder a las cookies a medida que los usuarios interactúan con la aplicación. También tenemos problemas cuando construimos aplicaciones con arquitecturas basadas en microservicios, cualquier control de permisos requiere volver a realizar peticiones en la base de datos.
+
+La autenticación con tokens funciona generando tokens con la identificación y los permisos de cada usuario, estos tokens son enviados y almacenados desde el cliente, así que, siempre que nuestras aplicaciones necesitan verificar los permisos de los usuarios simplemente necesitan validar los tokens. Gracias a este tipo de autenticación NO necesitamos un servicio de backend para almacenar las sesiones de autenticación de los usuarios, solo con guardar y validar los tokens podemos controlar los permisos para cada usuario.
+
+
+1 = usuario de autentican con el servidor
+2= crea una session , un espacio de memoria un ID
+3= lo mete en una cookie (crea new cookie con el ID )
+4= el cliente la guarda
+5=cualquier request es enviado con la cookie y se
+    compara para seguir
+
+fallas
+LAs clain sing aplication
+    no refrescan la  autenticaion tradiconal
+LAs Request API  no deberian tener estado pero las
+cookies si tienen estado
+las Applications modernas funcionan con multiples
+servicios a los cuales nos queremos conectar
+las cookies no fluyen hay bien (mal uso )
+
+los controles de servicios necesitan hacer los querys
+en los servidores
+
+no stacala bien , por que esta basado en memeria
+
+
+Autenticacion con jwt
+1 = usuario autenticado en database
+2 = servidor firma un token (los token son standar)
+    jwt es una forma de hacer un token
+3 = tiene info del usuario y sus permisos
+4 = enviado al cliente y este lo guarda
+    (en session storage , local storage , incluso en cookie )
+5 = cuando se almacena este token cualquier query
+    que venga de aqui en adelante se le envia el token
+
+mejoras =
+    no necesita ir al backend para saber si es el
+    usuario  esta autenticado o no (por que no
+    exixte el concepto de session ) lo unico que
+    hace el servidor es verificar que el token este
+    firmado
+el servidor o backend puede recibir multiples querys
+de muchos clientes y no verifica los servicios por que
+tienen los token y tienen la abilidad de consumir los
+recursos de este servidor
+el cliente tiene los permisos (se confia en el usuario
+    por que segun fue el quien se autentico )

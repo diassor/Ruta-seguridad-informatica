@@ -1,0 +1,6 @@
+La autorización consiste en definir los permisos y limitaciones de los usuarios que han pasado el proceso de autenticación, recuerda no confundir los términos. Este proceso de autorización sucede, por ejemplo, cuando permitimos que una aplicación se conecte a nuestra cuenta de Google, muchas veces no queremos que estas aplicaciones tengan todos los permisos de nuestra cuenta (para enviar o leer los correos, por ejemplo), pero si podemos autorizar otros permisos como la cámara o el calendario.
+
+Esto mismo sucede con nuestras aplicaciones, por ejemplo, algunos usuarios pueden tener permisos para escribir, actualizar o eliminar cierto contenido, mientras que otros solo pueden visualizar e interactuar con estas publicaciones.
+
+El desafío de esta clase es buscar y describir en la sección de comentarios una o más librerías que nos permitan realizar ambos procesos: autenticación y autorización.
+

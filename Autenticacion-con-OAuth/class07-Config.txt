@@ -1,0 +1,69 @@
+Configuracion inicial de los proyectos
+
+aquie se tubo que instalar nodejs siguiendo los
+pasos de nodejs github
+adiconal de
+    npm install -g nodemon
+    npm install nodemon@latest -D
+    y express ya que no estaba incorporado
+
+vamos a tebner 3 nodejs
+blog = creada en express esta en el puerto 3000
+    en el index.js podemos ver su Configuracion
+    bulma tambien se esta usando para su construccion
+    vista - logos y mas
+    curso de express
+
+admin = single pay store
+    esta construido con next y next funciona con react
+    imprementa varias cosas
+    tiene todo un mecanismo para crear app para
+    produccion , muchas cosas cache , rendering ,
+    se usa mucho next
+
+    "scripts": {
+      "dev": "next -p 3001",
+      "build": "next build",
+      "start": "next start"
+    },
+    con esta Configuracion esta funcionando el admin
+      tiene un servidor por debajo next , aunque tiene
+      la configuracion oculta siempre se deja extender
+      y escalar , muy facil   DE NEXT A  react normal
+      es facil la migracion
+
+
+para blog
+"scripts": {
+  "start": "node index",
+  "dev": "nodemon index"
+},
+corre con nodemon para escuchar los cambios y su
+version de produccion que arranca con el index.js
+
+ en el blog tenemos la autenticacion con dos
+ posibles formas google y spotify
+ logging = spotify
+    tenemos permisos para agregar los playlist
+ logging = google
+    solo podemos votar los playlist
+
+son dos mecanismos de autenticacion para el manejo
+
+lo mas conveniente es hacer un solo loggin de la app
+propia y por dentro poner lospermisos de spotify y
+los de google
+
+framework bulma es similar a boostrapt
+admin = single page app
+    aunque tiene server rendering vamos a usar el
+    imprisit grand flow que es el recomendado para
+    este tipo de page single page app
+
+framework = semantic
+    muchos componentes pata aplication web
+
+ambos van a tener autentication compretamente diferente
+al final lo vamos a incorporar con AUth0 que es la api
+para que haga toda la parte de autenticacion
+esta api usara otro flujo que es clain credential 

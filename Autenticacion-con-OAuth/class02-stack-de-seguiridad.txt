@@ -1,0 +1,25 @@
+Stack de seguridad para aplications web
+
+antes los Stacks de seguridad estaban hechos para vivir en la
+intranet tenian sus protocolos de seguiridad
+cuando llegaron las celulares estan fuera de los stacks de
+seguirdad de la intranet
+tambien aparecieron los micro servicios muchos clientes
+no habia forma de conexion com saat y esto ayudo un poco
+lugo llegaron mas api
+
+JSON WEB tokens
+    propone que no alla un estado de autenticacion en el
+    servidor  y muy compatible cons las api restor , que se
+    suponen que no deben tener estado
+
+OAuth2.0
+    Es un estandar de autenticacion  delega permisos
+    la ventaja de los standars lo aprendes una vez llegas
+    a diferentes aplicaciónes o servicios , solo seguimos
+    los mismo pasos que ya conocia
+
+
+OpenID Connect
+    Esta basado en OAuth2.0
+    no cambia lo mucho y mantiene casi los mismos flujos
