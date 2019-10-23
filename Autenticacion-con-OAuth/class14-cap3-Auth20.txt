@@ -1,0 +1,8 @@
+¿Qué es OAuth 2.0?
+
+En esta clase el profesor Guillermo Rodas nos explica en qué consiste el protocolo OAuth 2.0 y por qué se ha convertido en uno de los estándares más importantes de la industria para la autenticación.
+
+Gracias a los estándares de seguridad hoy en día podemos compartir flujos de autorización y autenticación entre diferentes aplicaciones, es decir, podemos aprender el paso a paso de cómo funcionan estos servicios y aplicarlos para proteger nuestras aplicaciones.
+
+ver el link
+https://www.youtube.com/watch?v=J04cs3rLQrA

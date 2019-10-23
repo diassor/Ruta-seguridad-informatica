@@ -1,0 +1,43 @@
+Server-Side vs Client-Side sessions
+
+Autenticar usuarios desde de lado del servidor es considerado stateful, debemos utilizar sesiones para preservar los estados de autenticación, es decir, guardamos en memoria o en una base de datos un identificador que nos permita comprobar si los usuarios están o no autenticados.
+
+Por otro lado, la autenticación de lado del cliente no utiliza sesiones, en realidad, no tenemos forma de verificar si los usuarios están autenticados o no, en vez de esto, validamos los datos de usuario para obtener tokens (con límite de tiempo) que utilizamos en las peticiones al servidor para validar el acceso y consultar nuestra información.
+
+Proceso de autenticación de lado del cliente:
+
+    Cuando los usuarios hacen login, el servidor responde con un token (indicando que el login fue exitoso) y nosotros, de lado del cliente, agregamos una bandera para indicar que el usuario esta autenticado.
+    En cualquier punto de nuestra aplicación (por ejemplo, cuando cambiamos de ruta o hacemos una nueva petición) debemos verificar la expiración de los tokens.
+    Si el token expira, debemos cambiar la bandera para indicar que el usuario NO esta autenticado y nuevamente redireccionar a los usuarios a la ruta de login.
+
+
+Como se hace el manejo de una sesion del lado del servidor y del manejo de sesion de lado del cliente
+
+que es una sessions = es una manera de perservar el estado
+en el  caso del servidor = un pedaso de dato almacenadoen en memoria del servidor o una database
+con este dato hacemos un registro de la informacion
+osea poder identificar al usuario con el id
+es lo que determina la session iniciada o terminada
+solo representa si el usuario esta identificado o no
+es considerado stateful = osea con estado
+
+del lado del cliente = no hay manera de saber si esta autenticado o no por que no tenemos manejo de sesiones
+la single page app esta desacoplada del servidor
+y los jwt no tienen estado , la sesion no puede existir  en el lado del servidor
+ahora vamos a emular
+
+Client -site sessions
+    Cuando el usuario hace login agregamos una bandera para indicar que lo esta = bandera un booleano si el usuario esta logiado o no
+
+    En cualquier punto de la app verificamos la expericion del token , debe tener una expiracion
+    y si esta expirada cambiamos la bandera diciendo
+    que el usuario no esta logiado , se verifica cuando hay cambio de rutas dependiendo de las libreria (middleware ) siempre le podemos
+    decir que chequee por medio de un reques html si
+    el toquen esta bien o no
+    si el token expiro podemos hacer unredirect
+    si el token esta expirado lo redireccionamos al login , mostramos un popup diciedo que se login
+    nuevamente
+
+    asi podemos emular el token del lado del cliente
+    esto no afecta al servidor  , tambien es impotante
+    que en el servidor lo verifiquemos

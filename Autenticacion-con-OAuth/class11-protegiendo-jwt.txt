@@ -1,0 +1,39 @@
+Protegiendo nuestros recursos con JWT
+
+Actualmente utilizamos dos algoritmos de cifrado para proteger nuestros JWT: RS256, donde necesitamos una llave publica y una privada para validar la información desde el servidor y el cliente (utiliza la RSA Signature con SHA-256), y HS256, donde tenemos un poco menos de seguridad ya que, utilizamos a misma llave para generar y validar los tokens (utiliza el HMAC también con SHA-256).
+
+se manejan dos tipos de algoritmos
+rs256 = que viene del RSA Signature con SHA-256
+es asimetrico dos llaves una publica y otra privada
+el servidor encargado de firmar la llave usa la llave
+secret que nadie mas la sabe  de esa manera genera la firma y el usuario obtine una public key
+es la que usa para validar la firma
+si elcliente la pierde no puede firmar los token
+
+HS256 HMAC with SHA-256
+si es simetrica la llave se comparte con todos y para todos si es comprometida se crean tokens
+si quien crea los token no tiene comtrol con los
+clientes y puede perder las llaves lo mejor es que pueda use el algoritmo RS256
+
+RS256
+JSON WEB Key Set (JWKS)
+{
+"Keys":[
+    {
+        "alg": "RS256",     algoritmo
+        "kty": "RSA",       Key type
+        "x5c": ["Mjkl="],   to be used
+        "n": "yeHKJS",
+        "e": "ASsds",
+        "kid": "NjVBR",
+        "x5t": "NjVBR",
+
+    }
+]
+}
+esta llave se usa para verificarlo publicamente
+com un set de key , tienen varias propiedades
+algotimos , tipo de llave , to be used (para que fue
+creada esta llave es de tipo Signature que es para firmar los jwt )
+y mas propiedades com x5c = un certificado enorme
+standar el 7517 seccion 4 como firmar los tokens
