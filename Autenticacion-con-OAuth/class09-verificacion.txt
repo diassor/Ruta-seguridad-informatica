@@ -1,0 +1,98 @@
+Verificando nuestro JWT firmado y buenas practicas con JWT
+
+Gracias a la librería jsonwebtokens también podemos validar nuestros JWT utilizando el método jwt.verify(), en esta clase vamos a crear un nuevo endpoint (/api/auth/verify) donde debemos devolver el el nombre de usuario que encontramos si el token que verificamos es valido. En caso de que el token no sea valido, vamos a devolver un error utilizando el método next() de la librería express.
+
+Buenas prácticas al utilizar JWT:
+
+    Nunca transmitir información sensible: Recuerda que los JWT son completamente decodificables, su seguridad no esta en la encripción de datos que transmitimos por los tokens sino en la validación frente a nuestros servidores. Toda la información que transmitimos por JWT debe ser tratada como si fuera enviada por texto plano.
+    Mantener los tokens pequeños: Los JWT NO son un medio de transmisión de datos, su única responsabilidad es verificar la autenticación de nuestros usuarios. para obtener la información de nuestros usuarios debemos crear nuevos endpoints en la API de nuestra aplicación que, por su puesto, solo deben ser disponibles si enviamos un token valido.
+    Configurar tiempos de vida de muy cortos: El tiempo de vida de nuestros tokens son el tiempo en que podemos utilizarlos, la recomendación son máximo 15 minutos. Entre más grande sea este tiempo, más tiempo tienen quienes quieran cometer ataques a nuestra aplicación.
+    Crear JWT opacos: Nunca es una buena idea decodificar nuestros tokens desde el cliente o frontend de nuestra aplicación, recuerda que este código es completamente público y corremos el riesgo de que alguien más acceda a las llaves privadas de nuestra aplicación.
+
+
+jwt.sing({ sub: user.id }, 'secret', options);
+
+jws.sing = libreria jwt metodo sing
+{ sub: user.id } = pasar el payload se recomienda
+    info no sencible
+secret = parametro , almacenado en el archivo
+    .env para que sea manejado por variantes
+    de entorno y no este en ninguna parte de
+    nuestro codigo ,ya que si alguien tuviera
+    este secret puede crear jwt para nuestro
+    aplicativo sin problema
+options = parametro , opciones por defecto
+    aqui podemos poner cosas como ejemplo
+    cuando expira un jwt es de muy buena
+    practica mantener el periodo de tiempo
+
+vamos hacer un endpoint para verificar la firma
+del jwt es valida e incluso acceder a nuestro
+payload
+
+con la misma libreria usando
+
+jwt.verify(token, 'secret', function(err, decode){});
+
+jwt.verify = libreria , pasamos el
+token = parametro a pasar
+'secret' = parametro a pasar
+function(err, decode){} = aqui sale decodificado
+
+en el api/index.js = linea 17
+el access_token = es el token que nos permite
+acceder a nuestros recursos asi se llama
+generalmente .
+puede ser de tipo jwt o no
+spotiry no maneha jwt este maneja token opacos y devuelven un access_token
+la manera mas facil de llamar un token es por virol
+este pasa el token y se extrae en este caso lo vamos
+hacer por medio del query
+como es asincrono incoporamos un metodo de
+try catch en el casos de un erro
+en express mira el middleware para ver el error
+en html
+decode.sub es para ver el nombre despues de firmado
+
+
+
+para confirmar el jwt recien creado hacemos lo siguiente en postman
+de post raw= json
+body
+{
+    "message": "the access token is valid",
+    "username": "glrodasz"
+}
+
+creamos un token
+
+para verificar vamos a post metodo get
+y parametro access_token
+value = ponemos el token creado anteriomente
+si esta bien nos dara el username y err que
+describimos
+{
+    "message": "the access token is valid",
+    "username": "glrodasz"
+}
+
+
+buenas practicas
+Avoid sensitive information
+    nunca info sencible algo que lo pueda
+    comprometer ya que podemos decodificarlo
+keeping small = manterlo pequeno
+ los clients deben mantenersen tan pequenos como
+ sean posibles por eso el standar sugiere 3 caracteres por token si queremos mas info del usuario podemos
+ incopor endpoints para mas info del usuario
+
+short-live token = mantenerlos tiempo de vida muy corto en archivo de configuracion un tiempo de expiracion una forma de hackig es tener los jwt para
+subir de niveles
+
+Opaque tokens = se deben cosiderar tokens opacos
+hemos decodificado jwt en el debugger (jwt.js) es por que conocemos el secret , podemos decodificarlo
+el secret  se mantine en el servidor y por si alguna razon nosotros estamos accediendo a esa información por medio del payload del lado del cliente decodificandolo
+cualquiera puede hacer un ataque ,  incluir un jwt falso osea con firma invalida y como el cliente no  lo
+puedo verificar vamos a optner informacion erronea y lo podemos usar para cualquier tipo de ataque
+por eso debe ser un token opaco osea su  contenido no sabemos que es , si quermos info del usuario usamos
+los endpoints del servidos que ellos si pueden verificar las firmas .
