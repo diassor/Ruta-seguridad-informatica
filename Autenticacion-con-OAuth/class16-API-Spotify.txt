@@ -1,0 +1,67 @@
+Conociendo el API de Spotify
+
+Enlaces
+Web API | Spotify for Developers
+https://developer.spotify.com/documentation/web-api/
+
+Authorization Guide | Spotify for Developers
+https://developer.spotify.com/documentation/general/guides/authorization-guide/
+
+
+900 Fastly Internal
+
+
+Web API | Spotify for Developers
+Nos explica nuestra app ingresa a la database de spotify y como manejan los id u y las uri , tambien del limite para que abusemos del servicio
+Rate limiting = error 429 standar limite de llamado de los recursos
+
+Codes = Aledano a los codigos http que ya conocemos
+
+
+Authorization Guide | Spotify for Developers
+
+standar RFC-6749
+
+nos enfocamos en los flujos que soporta spotify
+Authorization Flows
+
+There are 3 optional flows to obtaining app authorization:
+
+    Refreshable user authorization: Authorization Code
+        Cuando la app esta alojada en el servidor
+
+
+    Temporary user authorization: Implicit Grant
+        Cuando son SPA(single page Application)
+
+    Refreshable app authorization: Client Credentials Flow
+        Una app que convivie en la terminal o es otra API (cuuando el client es el mismo resouce owner )
+
+
+FLOW 	Access User Resources 	Requires Secret Key (Server-Side) 	Access Token Refresh
+Authorization Code 	Yes 	Yes 	Yes
+Client Credentials 	No 	Yes 	No
+Implicit Grant 	Yes 	No 	No
+
+nosotros vamos a usar los tres
+Admin  =>  Implicit Grand
+Blog (renderalizado en el server) => Authorization Code
+API => Client Credentials
+
+
+900 Fastly Internal
+https://developer.spotify.com/documentation/web-api/reference/playlists/get-list-users-playlists/
+
+
+
+osea hacemos una peticion GET https://api.spotify.com/v1/users/{user_id}/playlists
+responsce is list of this user
+
+Muy importante que para acceder a estos endpoint ya nos tenemos que haber autenticado osea usamos alguno
+de los tres flujos de autenticación y el nos entrega
+un access token (no jwt pero si es in token de autorizacion)
+
+hacer una cuenta en spotify
+ hacer los clients
+Un client tiene dos Client id and Secret  con esto podemos hacer client Credentials grand
+en postman podemos ver como obtenemos un Access token y apartir de eso podemos consumir las listas de usuario

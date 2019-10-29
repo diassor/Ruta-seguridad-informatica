@@ -1,0 +1,30 @@
+Cómo elegir el flujo adecuado para OAuth 2.0
+
+A medida que vamos usando nuevas tecnologias  o autenticaciones ese flujo debe ser mas especifico en
+los flujos determinados que podemos usar
+
+Flujos
+
+start =>  Is the cliente Resource owner ?
+(si la app es nosotros como usuario)
+yes => Client Credentials Grand (conceden el client id y client sequer al cliente , por que sabe que somos
+el resouce owner )
+
+no => Is the Client a Web App executing in a Server?
+
+Yes => Authorization code grand (En lugar de dar un access token directamente otorga un codigo que va a ser en un futuro un cambio por un access token )
+Es uno de los flujos mas seguros y recomendados a usar
+
+no => Is the Client trusted with User Credentials?
+yes => Resource Owner Password Credentials Grand
+(Este flujo se usa generalmente para app ligadas que no pueden refrescar y no usan meanicas para verificar
+Y enviar los access token )
+Antes de OAth era la manera en que se trabajaba se le concedia a los clientes el nombre de usuario y el Password del resouce owner
+problemas era que si el usuario cambiaba de contrasena el cliente pardia acceso por completo
+en  este flujo usando OAuth2 lo que se hace es  intercambiarlo por un access token y de esa manera si
+hay un cambio en las credenciales no pierd acceso
+
+no => Is the Client a Native App or SPA
+Si es SPA (sigle page app) se usa
+Implicit Grand (Es un flujo donde el authorization server envia el access token directamente al cliente   Cuidado que el cliente tenga el access token , por que no lo puede proteger )
+Native => Authorization code Grand(PKCE )

@@ -1,0 +1,3 @@
+Usando nuestro access token para obtener nuestros recursos
+
+revicion de los cambios en los templates

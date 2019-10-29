@@ -1,0 +1,81 @@
+Creando los clientes de Spotify y servicios iniciales
+
+creando clients para los flujos de authentication
+
+tres clients
+admin , api , blog
+
+se recomienda tener clients por app
+and clients for ambientes developers
+one client for developers
+one for staging (test staging )
+one more for procution
+
+eviatamos que hayan inconvenientes de ambiente
+con esto eviatamos hacer algon desarrllo no deberia ir a produccion etc ..
+
+en crear cliente pregunta si es nombre de app o hardware por que puede ser app nativas , internet of thing
+
+en descripcion ( de que satratara este client )
+
+what are you building?
+Que tipo de app estas creando
+todas las anteriores hacen parte del website
+
+
+siguiente pregunta si la app es para monetizar
+este paso no es reversible hay que desidir si se pienza monetizar o no
+
+no y aceptar las condicones
+
+Ultimo paso es establecer la url
+cuando el usuario permite el flujo de autorización el debe redireccionar sea con un codigo el access token
+
+vamos a felida api y edit y agregamos la url de redireccion por esto es importante manejar diferente
+clientes para los diferentes ambientes
+
+para mis clientes de desarrllo vamos a usar la url
+http://localhost:5000/callback
+el endpoint de redirecionamiento lo llamaremos callback pero este lo podemos llamar como queramos y podemos tener mas de una
+si ya tenemos una app de produccion no queremos que entre de manera local a la url de redirecionamiento
+por eso es mejor tener aislados los clientes
+
+para blog
+http://localhost:3000/callback
+
+para admin
+http://localhost:3001/callback
+
+vamos a configurar la primera parte del blog para implementar el authorization code grand
+
+instalamos dependemcias en el blog
+
+npm i -S dotenv  request cors cookie-parser
+
+dotenv =  para leer un archivo env como lo hicimos con el API
+
+request = para hacer los requests de http de cualquier servicio
+
+cors = Cross-Origin Resource Sharing (CORS) is a mechanism that uses additional HTTP headers to tell browsers to give a web application running at one origin, access to selected resources from a different origin. A web application executes a cross-origin HTTP request when it requests a resource that has a different origin (domain, protocol, or port) from its own.
+
+cookies-parser = para almacenar y leer cookies
+
+
+el archivo .env nunca deberia estar en el repositorio por lo que es muy importante ignorarlo
+
+
+en el archivo .env.example sirve como una guia para que el desarrollador pueda instarlar su variantes de
+entorno que deba usar
+
+(//)  para poner notas
+//SPOTIFY
+
+creamos una carpeta config con un archivo index.js
+
+otro folder utils = serie de utilidades para la imprementacion de nuestro flujo
+
+
+scopeArray.js son los scope en auth son los diferentes permisos que le pedimos al authorization server
+dependiendo de los scope que le pedimos nos entrega un token que tiene firmado esos permisos
+los scope vienen en los clients que hay loslista
+de esta manera podemos estar firmando toquens con diferentes permisos

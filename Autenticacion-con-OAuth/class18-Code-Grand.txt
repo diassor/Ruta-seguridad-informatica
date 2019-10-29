@@ -1,0 +1,27 @@
+Implementando Authorization Code Grant
+
+El flujo de Authorization Code Grant comienza redireccionando a los usuarios a una pantalla donde pedimos permisos para acceder a su cuenta (en este caso con Spotify) para que, a su vez, la aplicación nos devuelva un código de autorización. Este código de autorización lo vamos a utilizar para enviar junto con las variables de client_id y client-secret una nueva petición a la API de Spotify.
+Esta vez, la API nos responde con un token de acceso que podemos utilizar para acceder al contenido que tenemos permitido según la plataforma de Spotify.
+
+
+Authorization code grand = solo para app que corren del lado del servidor
+Es la manera correcta y segura de implementar el flujo de autenticación
+
+Client(nuestra app al lado del servidor) =
+se identifica al lado del usuario generalmente esto sucede con un redirecionamiento en donde nos dice que
+la app quiere acceder a nuestros servicos del resouce server
+este nos pedira permisos sobre SPOTIFY
+por eso enviamos el tang-id los scope y se debe enviar
+para empezar este flujo debe ser responce site debe ser de tipo code
+
+User (resouce owner ) = accepta los permisos se le envia un authorization Code ala app del servidor
+este authorization code es el que nos sirvira para reemplazarlo por el access token
+
+La app lo que debe hacer es tomar ese Authorization code debe almacenarlo en un lugar seguro y autenticarse ante el authorization Server y ademas
+enviar el authorization code
+la manera de autenticarse es enviando el Client id y el secret codificado en base64
+
+Cuando el Authorization Server compruebe que el cliente es quien dice ser y que el authorization code es valido le entrega un access token
+
+ya con el access token nuestro cliente puede empezar hacer peticiones al API y obtener los recursos
+ver los apuntes en el codigo

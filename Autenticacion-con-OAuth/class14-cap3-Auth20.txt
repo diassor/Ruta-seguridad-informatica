@@ -6,3 +6,35 @@ Gracias a los estándares de seguridad hoy en día podemos compartir flujos de a
 
 ver el link
 https://www.youtube.com/watch?v=J04cs3rLQrA
+
+
+Que es Oauth 2.0
+open authentication
+
+Resource owner = Es la entidad que concede el acceso
+    a los recursos protegidos  generalmente representado por la persona final
+
+Resource server = Es quien almacena estos recursos
+    protegidos generalmente es la Api a la que queremos acceder
+
+Application Client = Es el cliente es la aplicacion
+    que pide estos recursos protegidos en nombre del resouce owner
+
+finalmemte tenemos el :
+Authorization server = Es quien autentica que el
+    resources owner es efectivamente el y genera los access tokens que pueden ser o no JWT y se los entrega a los clientes (Client Application)
+
+como funciona
+
+Application Client => requiere servicios del Resource owner (usuario)
+Resource owner verifica que es la aplicacion que requiere y le entrega unos permisos de autorizacion
+Application Client con los permisos de autorización puede acercarse al
+Authorization Server  y pedir un access token , solo verifica que esos permisos son legitimos
+y que fueron otorgados por el Resource owner
+Authorization Server => entrega los access tokens tiene autorizados todos los permisos necesarios para
+consumir los recursos del Resource Server
+Asi :
+La Application Client en cada peticion incluye el access token y de esta manera el Resource Sever  verifica que el access token es valido que si fue
+emitido por el Authorization server y entrega los
+recursos protegidos
+Esos recursos son los que solicita la aplicación en nombre del usuario  (resources owner )
