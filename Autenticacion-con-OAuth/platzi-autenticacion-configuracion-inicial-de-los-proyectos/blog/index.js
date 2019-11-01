@@ -80,9 +80,12 @@ function getUserPlaylists(accessToken, userId) {
 }
 
 // routes
+
+/*sacamos el access_token de nuestra cookie y le ponemos un alias (cookies),
+*/
 app.get("/", async function(req, res, next) {
   const { access_token: accessToken } = req.cookies;
-
+/*hacemos un bloque try catch por que es una funcion asincrona */
   try {
     const userInfo = await getUserInfo(accessToken);
     res.render("playlists", {
@@ -90,22 +93,24 @@ app.get("/", async function(req, res, next) {
       isHome: true,
       playlists: { items: playlistMocks }
     });
+/*si hay un error llamamos a owe middlewares con el error o si no hacemos lo siguiente : sacar el userInfo con un await y le pasamos el accessToken, luego lo pasamos a ala lista de playlists  y lo marcamos como home  */
   } catch (error) {
     next(error);
   }
 });
-
+/*Un nuevo endpoint handle asincrono next(llama error en caso de que haya , sacamos el accessToken de ower cookie )*/
 app.get("/playlists", async function(req, res, next) {
   const { access_token: accessToken } = req.cookies;
-
+//si el accessToken no es valido , redirect to home en ves
+//de mostrar un error
   if (!accessToken) {
     return res.redirect("/");
   }
-
+/*otro bloque de try catch (errores )  ademas traemos la utilidad del objeto para traer al usuario*/
   try {
     const userInfo = await getUserInfo(accessToken);
     const userPlaylists = await getUserPlaylists(accessToken, userInfo.id);
-
+/*Hacemos el render utilizando nuestra vista de playlists le pasamos el userInfo y los playlists, como resultado de los playlists del usuario */
     res.render("playlists", { userInfo, playlists: userPlaylists });
   } catch (error) {
     next(error);
@@ -136,6 +141,11 @@ lo que hace este callback es leer el codigo osea cuando el cliente acepta dar lo
 autorización a nuestra app no envia el codigo que posteriormente lo vamos a usar por el access token
 generalmente ese codigo lo envia en el query y tambien nos envia el estado que le pasamos
 */
+app.get("/logout", function(req, res) {
+  res.clearCookie("access_token");
+  res.redirect("/");
+});
+
 app.get("/callback", function(req, res, next) {
   const { code, state } = req.query;
   const { auth_state } = req.cookies;

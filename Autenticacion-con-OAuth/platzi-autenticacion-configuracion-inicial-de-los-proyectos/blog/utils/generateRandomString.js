@@ -1,5 +1,5 @@
 /*
-Para evitar ataques de CXX ,
+Para evitar ataques de XSS ,
 establecemos un estado que va a ser abreviatorio y
 se lo pasaremos al flujo de authentication
 pasamos el length y este genera un string
