@@ -1,0 +1,45 @@
+Implementando Implicit Grant
+
+
+El flujo de Implicit Grant es muy similar al de Authorization Code Grant, la diferencia principal es que trabajamos de lado del cliente y nos saltamos la parte del código de autorización, en vez de eso, vamos a recibir el token de acceso para realizar peticiones al momento que los usuarios nos dan permiso para acceder a su cuenta de Spotify.
+
+
+
+
+Autorization code grant = es el flujo que se implementa  cuando nuestras app viven del lado del servidor
+
+Implicit Grant = Cuando la app viene del lado del cliente
+
+SPA (single page app): Nuestro cliente se autentica bajo el usuario =>
+User(resource owner): concede los permisos inmediatamente Authorization server => envia el access token ( en el fracmento de la url y esto lo hace por seguridad )
+Nuestra SPA va a tener el access token ( es muy importante saber donde lo vamos a almacenar [por que simpremente esta  hay y cualquiera puede hacer un uso indevido de el ])
+Lo incluimos en todos los recuest y podemos acceder a los recursos del servidor.
+
+
+vamos a nuestro sitio del administrador
+e instalamos nuestras independencias
+npm i -S dotenv isomorphic-fetch babel-plugin-transform-define
+
+dotenv = leer archivos env
+isomorphic-fetch = libreria (esto es por que next es una app isomorphic o bien llamado universal siempre tener en cuenta [problemas con next o instalando codigo isomorphic
+])
+
+babel-plugin-transform-define = por que todo el tema de variante de entorno esta disenado para los servidores no para el client [con este plugin se reemplaza cadenas de
+texto y alimentar las cadenas de texto con variantes de entorno ]
+
+
+en admin creamos el env
+creamos la carpeta config con una config different por lo que hablamos que las variantes de entorno realmente no
+existen el lado del client
+
+.babel para llamar los env reales
+
+antes inplementar el codigo para hacer el Implicit Grant
+tenemos que hacer utilidades(utils)
+los archivos de scopeArray , GenerateRandomString (para generar strings de modo aleatorio )
+getHashParams.js= Nos permite acceder a los parametros por un hash
+isEmptyObject.js = para no tener que agregar librerias como loadas u otra para identificar que es un objeto vasio
+
+en utils implementamos todas la utilidades que nesecitamos para todo el proceso de autenticacion de Implicit Grant
+
+el scope es hacerlo como un array para en el furuto integrar diferentes scopes 

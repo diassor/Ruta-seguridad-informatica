@@ -1,4 +1,4 @@
-require("dotenv").config();
+require('dotenv').config();
 
 const config = {
   spotifyClientId: process.env.SPOTIFY_CLIENT_ID,
